@@ -1,0 +1,6 @@
+{
+  "_comment": "slack_post.py の投稿先。チャンネルを増やすときは id を足すだけでよい。",
+  "slack_channels": [
+    { "id": "C0XXXXXXXXX", "name": "#通知先チャンネル" }
+  ]
+}

@@ -1,0 +1,18 @@
+display_information:
+  name: "アプリ名"
+  description: "1行の説明（140文字以内）"
+  background_color: "#2b5797"
+  long_description: "このアプリが何を通知するのかを書く。あわせて、どこから実行されるのか（CI・サーバ・手元の端末）、どのような情報を扱うのか、投稿は自動か手動かを書いておくと、後からワークスペースの管理者やメンバーが見たときに素性が分かる。短すぎると作成時に弾かれることがあるため、機能・実行元・扱う情報の3点を書いて長さを確保する。"
+features:
+  bot_user:
+    display_name: "ascii_name"
+    always_online: true
+oauth_config:
+  scopes:
+    bot:
+      - "chat:write"
+      - "chat:write.public"
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
