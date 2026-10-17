@@ -1,0 +1,17 @@
+# auto-cleanup.sh の設定。zsh として source されるので、コマンド置換も書ける。
+# 置き場: ~/.claude/disk-auto-cleanup/config（install-auto.sh が初回にこの雛形をコピーする）
+
+# 空きがこの GB 数を割っていたら掃除する
+THRESHOLD_GB=15
+
+# マージ済み worktree を掃除するリポジトリ。各リポジトリの .claude/worktrees/ 配下だけが対象
+AUTO_CLEANUP_REPOS=(
+  # "$HOME/dev/your-repo"
+)
+
+# Slack 通知（任意）。どちらかが空なら macOS 通知だけ出す
+# SLACK_CHANNEL に自分のユーザ ID を入れると、bot からの DM になる
+SLACK_BOT_TOKEN=""
+SLACK_CHANNEL=""
+# 例: トークンを別ファイルから読む
+# SLACK_BOT_TOKEN="$(cat "$HOME/.config/slack/bot-token" 2>/dev/null)"

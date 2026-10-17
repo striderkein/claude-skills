@@ -10,7 +10,7 @@
 |---|---|
 | `adversarial-panel` | 複数モデルによる敵対的相互レビュー。パネリストが独立回答 → 相互批判 → ファシリテータが合意点・対立点・確信度を統合する |
 | `dev-browser` | ページ状態を保持したブラウザ自動化 (navigate / click / fill / screenshot / extract) |
-| `disk-cleanup` | macOS のディスク空き容量を最大化。Docker prune + 安全なキャッシュ削除 + `node_modules` 一括削除 |
+| `disk-cleanup` | macOS のディスク空き容量を最大化。Docker prune + 安全なキャッシュ削除 + `node_modules` 一括削除。空きが閾値を割ったら安全段階だけを無人で走らせる週次 launchd ジョブも同梱 |
 | `git-skip-worktree` | 追跡中ファイルの変更が `git status` / `git diff` に出ない時の診断と、`skip-worktree` / `assume-unchanged` ビットの ON/OFF |
 | `japanese-tech-writing` | 日本語の技術文書・書籍原稿の文章規範。整形、パラグラフライティング、論証の厳密さ、冗長の排除 |
 | `slack-bot-setup` | 通知用 Slack App (bot) をマニフェストから作って投稿まで通す手順。マニフェスト検証で弾かれる項目、ハンドルからハイフンが落ちる仕様、投稿スクリプト同梱 |
@@ -31,6 +31,7 @@ ln -s "$PWD/claude-skills/skills/<name>" ~/.claude/skills/<name>
 
 | Skill | 必要なもの |
 |---|---|
+| `disk-cleanup`（自動実行を使う場合） | `assets/auto-cleanup.config.example` を元にした `~/.claude/disk-auto-cleanup/config`（掃除対象リポジトリ、任意で Slack の投稿先とトークン） |
 | `slack-bot-setup` | `SLACK_BOT_TOKEN`、`assets/config.example.json` を元にした投稿先設定 |
 | `voice-proxy` | `ELEVENLABS_API_KEY`、`ELEVENLABS_VOICE_ID`、仮想オーディオデバイス (BlackHole / VB-Cable) |
 

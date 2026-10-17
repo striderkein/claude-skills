@@ -118,7 +118,8 @@ rm /tmp/nm-list.txt
 
 ### Step 6: サマリ出力
 
-`df -h /` を再実行して開始時との差分を出す:
+`diskutil info / | grep "Container Free Space"` を再実行して開始時との差分を出す。
+解放量は `du` の合計ではなくこの差で測る。macOS の pnpm は store から APFS のクローン（コピーオンライト）で node_modules を作るため、`du` は共有されている実体を各ディレクトリで全量数え、解放見込みを大きく見積もる。
 
 ```
 ## Cleanup Complete
@@ -134,6 +135,45 @@ rm /tmp/nm-list.txt
 - 該当 worktree で `pnpm install`
 - puppeteer / chrome-devtools-mcp は次回 MCP 起動時に自動 DL
 ```
+
+## 自動実行（定期ジョブ）
+
+「逼迫したら自動で掃除してほしい」と頼まれたら、`scripts/install-auto.sh` で launchd に週 1 回のジョブを登録する。
+ジョブは空き容量を測り、閾値（既定 15GB）未満のときだけ**安全段階**を無人で走らせ、結果を macOS 通知（任意で Slack）に出す。
+
+```bash
+# 既定は毎週土曜 08:00（Mac のローカル時刻）。引数は WEEKDAY HOUR MINUTE（launchd 表記、6 = 土曜）
+zsh scripts/install-auto.sh 6 8 0
+# ~/.claude/disk-auto-cleanup/config を編集: AUTO_CLEANUP_REPOS（worktree を掃除するリポジトリ）、SLACK_BOT_TOKEN / SLACK_CHANNEL
+# 登録前の確認（消さずに候補だけ出す）
+THRESHOLD_GB=999 DRY_RUN=1 NO_NOTIFY=1 zsh scripts/auto-cleanup.sh
+```
+
+| 自動で消す | 自動では消さない |
+|---|---|
+| Step 4 の再 DL できるキャッシュ + `brew cleanup` | node_modules 一括削除（Step 5） |
+| `docker system prune -a -f`（`--volumes` なし、daemon 停止中はスキップ） | ms-playwright、pnpm store、Docker volumes |
+| `AUTO_CLEANUP_REPOS` の `.claude/worktrees/` のうちマージ済みのもの | 手動作成の worktree、ブラウザのデータ |
+
+worktree は次を**すべて**満たすときだけ消す。ローカルブランチは消さない。
+
+- ローカル HEAD が、マージ済み PR の**マージ時 head SHA の祖先**である（または既定ブランチに取り込み済みで独自コミット 0）
+- 未コミット変更・未追跡ファイルが無い
+- どのプロセスの cwd にもなっていない
+
+ブランチ名が一致する PR がマージ済み、というだけで消してはいけない。マージ後に同じブランチへローカルコミットを積んだ worktree を巻き込む。
+
+運用:
+
+| やりたいこと | 操作 |
+|---|---|
+| 一時停止 / 再開 | `touch ~/.claude/disk-auto-cleanup/DISABLED` / ファイルを消す |
+| 今すぐ実行 | `launchctl kickstart -p gui/$(id -u)/local.disk-auto-cleanup` |
+| 状態確認 | `launchctl print gui/$(id -u)/local.disk-auto-cleanup`（`runs` と `last exit code`） |
+| 曜日・時刻の変更 | `install-auto.sh` を引数を変えて再実行（入れ替わる） |
+| 撤去 | `install-auto.sh --uninstall` |
+
+閾値以上で見送った回は `logs/check.log` に 1 行残る。通知が来ないことを「問題なし」の証拠にせず、ここで確かめる。
 
 ## Safety Rules (絶対遵守)
 
