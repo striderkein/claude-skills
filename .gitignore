@@ -3,3 +3,5 @@ local.json
 *.local.json
 logs/
 .env
+# my-voice の生のコーパス（会社リポジトリの本文を含む）
+corpus/
