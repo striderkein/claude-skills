@@ -13,6 +13,7 @@
 | `disk-cleanup` | macOS のディスク空き容量を最大化。Docker prune + 安全なキャッシュ削除 + `node_modules` 一括削除。空きが閾値を割ったら安全段階だけを無人で走らせる週次 launchd ジョブも同梱 |
 | `git-skip-worktree` | 追跡中ファイルの変更が `git status` / `git diff` に出ない時の診断と、`skip-worktree` / `assume-unchanged` ビットの ON/OFF |
 | `japanese-tech-writing` | 日本語の技術文書・書籍原稿の文章規範。整形、パラグラフライティング、論証の厳密さ、冗長の排除 |
+| `my-voice` | GitHub の Issue・PR・コメントの本文を本人の文体と判断の軸で書く・書き直す。骨格は読み手に親切な整えた文、判断の軸と一言の本音は素の声から取る。書き終えた本文は同梱の `lint-voice.sh` で AI 臭い定型句を機械検査する |
 | `slack-bot-setup` | 通知用 Slack App (bot) をマニフェストから作って投稿まで通す手順。マニフェスト検証で弾かれる項目、ハンドルからハイフンが落ちる仕様、投稿スクリプト同梱 |
 | `voice-proxy` | 本人の声のクローン（合成音声）でテキストを代読し、仮想オーディオデバイス経由で会議アプリに流す |
 
