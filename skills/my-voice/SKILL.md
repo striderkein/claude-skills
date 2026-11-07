@@ -48,7 +48,7 @@ Issue・PR・コメントの本文を、striderkein が自分で書いたと読�
 本文をファイル（ここでは `draft.md`）に書き出し、検査する。
 
 ```bash
-bash ~/.claude/skills/my-voice/scripts/lint-voice.sh draft.md
+bash "${CLAUDE_SKILL_DIR}/scripts/lint-voice.sh" draft.md
 ```
 
 ERROR は直す。WARN は理由があれば残してよい。
