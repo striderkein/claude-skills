@@ -17,7 +17,26 @@
 | `slack-bot-setup` | 通知用 Slack App (bot) をマニフェストから作って投稿まで通す手順。マニフェスト検証で弾かれる項目、ハンドルからハイフンが落ちる仕様、投稿スクリプト同梱 |
 | `voice-proxy` | 本人の声のクローン（合成音声）でテキストを代読し、仮想オーディオデバイス経由で会議アプリに流す |
 
-## インストール
+## プラグイン
+
+`.claude-plugin/marketplace.json` で、Claude Code のプラグイン マーケットプレイス（名前は `striderkein-skills`）としても配布している。プラグインとして入れたものは `/plugin marketplace update` で更新を取り込める。
+
+| プラグイン | スキル | 概要 |
+|---|---|---|
+| `github-etiquette` | `reply-reaction` | GitHub の Issue・PR で他人の返信を読んだら、内容に異議なく同意できるなら 👍、読んだだけ（異論・疑問がある、事実を確かめていない、同意を示す内容ではない）なら 👀 を付け、判断の理由を報告する。自分と bot のコメント、付け済みのものは同梱の `react.sh` が飛ばす |
+
+```sh
+/plugin install github-etiquette --marketplace striderkein/claude-skills
+```
+
+古い Claude Code では、マーケットプレイスを登録してから入れる。
+
+```sh
+claude plugin marketplace add striderkein/claude-skills
+claude plugin install github-etiquette@striderkein-skills
+```
+
+## インストール（ユーザレベル skill）
 
 ```sh
 git clone git@github.com:striderkein/claude-skills.git

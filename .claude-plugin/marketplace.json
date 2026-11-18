@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "striderkein-skills",
+  "description": "striderkein の個人用 Claude Code プラグイン マーケットプレイス。特定の会社・プロジェクトに依存しない汎用プラグインを配布する。",
+  "owner": {
+    "name": "striderkein",
+    "url": "https://github.com/striderkein"
+  },
+  "plugins": [
+    {
+      "name": "github-etiquette",
+      "displayName": "GitHub Etiquette",
+      "description": "GitHub でのやり取りの作法をそろえるスキル集。reply-reaction（他人の返信を読んだら、異議なく同意できるなら 👍、読んだだけなら 👀 を付け、判断の理由を報告する。自分と bot のコメント、付け済みのものは飛ばす）を収録。",
+      "source": "./plugins/github-etiquette",
+      "version": "0.1.0",
+      "category": "productivity",
+      "keywords": ["github", "reaction", "review", "issue", "pull-request", "etiquette"]
+    }
+  ]
+}

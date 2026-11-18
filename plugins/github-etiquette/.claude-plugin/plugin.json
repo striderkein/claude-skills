@@ -1,0 +1,10 @@
+{
+  "name": "github-etiquette",
+  "displayName": "GitHub Etiquette",
+  "version": "0.1.0",
+  "description": "GitHub でのやり取りの作法をそろえるスキル集。reply-reaction（他人の返信を読んだら、異議なく同意できるなら 👍、読んだだけなら 👀 を付け、判断の理由を報告する。自分と bot のコメント、付け済みのものは飛ばす）を収録。",
+  "author": {
+    "name": "striderkein"
+  },
+  "keywords": ["github", "reaction", "review", "issue", "pull-request", "etiquette"]
+}
